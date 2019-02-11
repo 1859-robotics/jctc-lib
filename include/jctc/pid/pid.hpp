@@ -4,8 +4,13 @@
 #include <functional>
 #include "jctc/misc/misc.hpp"
 
-#define JCTC_MAX_SPEED 127
-#define JCTC_MIN_SPEED 25
+#ifndef MAX_SPEED
+#define MAX_SPEED 127
+#endif
+
+#ifndef MIN_SPEED
+#define MIN_SPEED 25
+#endif
 
 namespace jctc {
   typedef struct {
@@ -13,16 +18,8 @@ namespace jctc {
     float kI;
     float kD;
 
-    #ifdef MAX_SPEED
-      float maxSpeed = MAX_SPEED;
-    #else
-      float maxSpeed = JCTC_MAX_SPEED;
-    #endif
-    #ifdef MAX_SPEED
-      float minSpeed = MIN_SPEED;
-    #else
-      float minSpeed = JCTC_MIN_SPEED;
-    #endif
+    float maxSpeed = MAX_SPEED;
+    float minSpeed = MIN_SPEED;
 
     float epsilonInner = 0.001;
     float epsilonOuter = 0.001;
