@@ -31,12 +31,20 @@ namespace jctc {
       if(mag(a) == 0) return a;
       return { a.x / mag(a), a.y / mag(a) };
     }
-
     void print(Point a) {
       std::cout << "(" << a.x << ", " << a.y << ")" << std::endl;
     }
     void print(Position a) {
       std::cout << "(" << a.pos.x << ", " << a.pos.y << ")  | " << a.a << std::endl;
+    }
+    Point closest(Point current, Point head, Point target) {
+      Point n = normalize(head);
+      Point v = sub(target, current);
+      float d = dot(v, n);
+      return add(current, mult(n, d));
+    }
+    bool withinErr(Point current, Point target, float err) {
+      return dist(current, target) < err;
     }
   }
 }

@@ -24,7 +24,12 @@ namespace jctc {
     float mag(Point a);
     Point normalize(Point a);
 
+    // utils
     void print(Point);
     void print(Position);
+
+    // higher level operations
+    Point closest(Point current, Point head, Point target);
+    bool withinErr(Point current, Point target, float err);
   }
 }

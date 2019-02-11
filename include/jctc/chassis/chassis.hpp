@@ -2,6 +2,7 @@
 #include "main.h"
 #include "jctc/misc/misc.hpp"
 #include "jctc/odom/odom.hpp"
+#include "jctc/odom/position.hpp"
 #include "jctc/pid/pid.hpp"
 
 namespace jctc {
@@ -22,5 +23,7 @@ namespace jctc {
     void turnToFace(float target, int timeout, float err);
     void turnToFace(odom::Point target, int timeout, float err);
 
+    float angleToPoint(odom::Point target);
+    float distanceToPoint(odom::Point target);
   };
 }
