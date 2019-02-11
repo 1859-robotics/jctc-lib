@@ -46,5 +46,25 @@ namespace jctc {
       this->state.pos.y += dY;
       this->state.a += dA;
     }
+
+    void Tracker::setPos(float x, float y, float a) {
+      state.pos.x = x;
+      state.pos.y = y;
+      state.a = a;
+    }
+    void Tracker::setPos(Point pt, float a) {
+      state.pos = pt;
+      state.a = a;
+    }
+    void Tracker::setPos(Position pos) {
+      state = pos;
+    }
+
+    void Tracker::reset() {
+      lEncoder->reset();
+      rEncoder->reset();
+      mEncoder->reset();
+      setPos({ 0, 0, 0 });
+    }
   }
 }
