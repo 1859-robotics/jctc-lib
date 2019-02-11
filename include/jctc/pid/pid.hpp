@@ -58,6 +58,7 @@ namespace jctc {
     void doPID(float target, float tolerance, std::function <float()> current, std::function <void(float)> action);
     void debug(std::string name);
     void reset();
+    bool settled();
     float calculate(float target, float current);
   };
 }
