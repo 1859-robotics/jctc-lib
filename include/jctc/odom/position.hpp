@@ -12,6 +12,8 @@ namespace jctc {
       float a;
     };
 
+    // operators
+    //TODO: look into operator overloads for some of these
     float dist(Point a, Point b);
     float dot(Point a, Point b);
     Point add(Point a, Point b);
@@ -21,5 +23,8 @@ namespace jctc {
     Point div(Point a, Point b);
     float mag(Point a);
     Point normalize(Point a);
+
+    void print(Point);
+    void print(Position);
   }
 }

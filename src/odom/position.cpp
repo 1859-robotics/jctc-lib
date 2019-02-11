@@ -31,5 +31,12 @@ namespace jctc {
       if(mag(a) == 0) return a;
       return { a.x / mag(a), a.y / mag(a) };
     }
+
+    void print(Point a) {
+      std::cout << "(" << a.x << ", " << a.y << ")" << std::endl;
+    }
+    void print(Position a) {
+      std::cout << "(" << a.pos.x << ", " << a.pos.y << ")  | " << a.a << std::endl;
+    }
   }
 }
