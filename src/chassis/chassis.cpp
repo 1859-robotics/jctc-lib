@@ -10,6 +10,7 @@ namespace jctc {
     return odom::dist(target, state.pos);
   }
 
+  //TODO: make timeout
   void Chassis::driveTo(odom::Point target, float rotScalar, int timeout, float err) {
     while(!withinErr(target, tracker.getPos().pos, err)) {
       const odom::Position state = tracker.getPos();
@@ -31,7 +32,6 @@ namespace jctc {
 
       pros::delay(20);
     }
-
     driveVector(0, 0);
   }
 }
