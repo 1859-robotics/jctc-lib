@@ -32,6 +32,7 @@ namespace jctc {
       void setPos(float x, float y, float a);
       void setPos(Point pt, float a);
       void setPos(Position pos);
+      Position getPos();
       void reset();
 
     };

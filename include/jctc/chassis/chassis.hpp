@@ -8,10 +8,19 @@ namespace jctc {
   class Chassis {
   private:
     odom::Tracker tracker;
-    
+
+    PID turnPid;
+    PID distPid;
+
   public:
-    Chassis(odom::Tracker tracker) :
-      tracker(tracker) {};
+    Chassis(odom::Tracker tracker, PID turnPid, PID distPid) :
+      tracker(tracker), turnPid(turnPid), distPid(distPid) {};
+
     virtual void driveVector(float forward, float turn);
+
+    void driveTo(odom::Point target, float rotScalar, int timeout, float err);
+    void turnToFace(float target, int timeout, float err);
+    void turnToFace(odom::Point target, int timeout, float err);
+
   };
 }

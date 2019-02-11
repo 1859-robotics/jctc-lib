@@ -66,5 +66,9 @@ namespace jctc {
       mEncoder->reset();
       setPos({ 0, 0, 0 });
     }
+
+    Position Tracker::getPos() {
+      return state;
+    }
   }
 }
