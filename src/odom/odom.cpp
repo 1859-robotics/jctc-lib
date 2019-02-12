@@ -69,5 +69,21 @@ namespace jctc {
     Position Tracker::getPos() {
       return state;
     }
+
+    void trackTask(void* odomPtr) {
+      Tracker* tracker = static_cast<Tracker*>(odomPtr);
+      int count = 0;
+      while(true) {
+        tracker->step();
+        count++;
+        if(count >= 40) {
+          tracker->debug();
+          count = 0;
+        }
+
+        pros::delay(10);
+      }
+    }
+
   }
 }
