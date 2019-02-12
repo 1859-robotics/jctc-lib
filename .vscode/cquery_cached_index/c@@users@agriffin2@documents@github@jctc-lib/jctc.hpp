@@ -5,5 +5,6 @@
 #include "./include/jctc/odom/odom.hpp"
 #include "./include/jctc/odom/position.hpp"
 #include "./include/jctc/chassis/chassis.hpp"
+#include "./include/jctc/logger/logger.hpp"
 
 using namespace jctc;
