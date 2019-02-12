@@ -1,9 +1,9 @@
 #pragma once
 #include "main.h"
-#include "jctc/misc/misc.hpp"
-#include "jctc/odom/odom.hpp"
-#include "jctc/odom/position.hpp"
-#include "jctc/pid/pid.hpp"
+#include "../misc/misc.hpp"
+#include "../odom/odom.hpp"
+#include "../odom/position.hpp"
+#include "../pid/pid.hpp"
 
 namespace jctc {
   class Chassis {

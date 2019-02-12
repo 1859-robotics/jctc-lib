@@ -1,4 +1,3 @@
-#pragma once
 #include "jctc/odom/position.hpp"
 
 namespace jctc {

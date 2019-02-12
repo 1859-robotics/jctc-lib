@@ -1,6 +1,6 @@
 #pragma once
 #include "main.h"
-#include "jctc/odom/position.hpp"
+#include "position.hpp"
 
 namespace jctc {
   namespace odom {

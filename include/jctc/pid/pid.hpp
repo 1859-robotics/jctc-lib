@@ -2,7 +2,7 @@
 
 #include "main.h"
 #include <functional>
-#include "jctc/misc/misc.hpp"
+#include "../misc/misc.hpp"
 
 #ifndef MAX_SPEED
 #define MAX_SPEED 127
