@@ -35,7 +35,8 @@ namespace jctc {
       Position getPos();
       void reset();
     };
-  };
 
-  void trackTask(void* odomPtr);
+    void trackTask(void* odomPtr);
+  }
+
 }
