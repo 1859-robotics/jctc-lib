@@ -1,4 +1,4 @@
-#include "jctc/logger/logger.hpp"
+#include "../../include/jctc/logger/logger.hpp"
 
 namespace jctc {
   Logger::Logger(lv_align_t alignment) {

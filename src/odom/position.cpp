@@ -1,4 +1,4 @@
-#include "jctc/odom/position.hpp"
+#include "../../include/jctc/odom/position.hpp"
 
 namespace jctc {
   namespace odom {
