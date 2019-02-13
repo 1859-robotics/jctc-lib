@@ -1,4 +1,4 @@
-#include "../../include/jctc/misc/misc.hpp"
+#include "jctc/misc/misc.hpp"
 
 namespace jctc {
   float rollPI(float angle) {
