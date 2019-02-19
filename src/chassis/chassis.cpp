@@ -40,24 +40,24 @@ namespace jctc {
     moveFor(dist({ tracker.getPos().pos.x, tracker.getPos().pos.y}, target), timeout);
   }
 
-  void Chassis::moveFor(float distIn, pid::PIDConfig pid, float exit){
+  void Chassis::moveFor(float distIn, PIDConfig pid, float exit){
     odom::Point start = {
       tracker.getPos().pos.x,
       tracker.getPos().pos.y
     };
 
-    mainPID.reset();
-    mainPID.config(pid);
+    distPid.reset();
+    distPid.config(pid);
 
     std::uint32_t started = pros::millis();
 
-    mainPID.doPID(0, P_ERR, [=]() -> float {
+    distPid.doPID(0, P_ERR, [=]() -> float {
       if((pros::millis() - started) > exit) return 0;
-      return (fabs(distIn) - dist(start, tracker.getPos().pos.x, tracker.getPos().pos.y));
+      return (fabs(distIn) - dist(start, { tracker.getPos().pos.x, tracker.getPos().pos.y }));
     }, [=](float output) -> void {
       driveVector(SGN(-distIn) * output, 0);
     });
-    driveVector(SGN(-distIn) * output, 0);
+    driveVector(0, 0);
   }
 
   void Chassis::moveFor(float distIn, float exit) {
