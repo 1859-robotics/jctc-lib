@@ -10,6 +10,7 @@ namespace jctc {
   public:
     Logger(lv_align_t alignment);
     Logger(lv_align_t alignment, std::string name);
+    ~Logger();
     void log(const char* text);
     void log(std::string text);
   };

@@ -37,13 +37,13 @@ namespace jctc {
 
   void Chassis::moveToSimple(odom::Point target, int timeout) {
     turnToFace(target, 60);
-    moveFor(dist(posTracker.x, posTracker.y, target.x, target.y), timeout);
+    moveFor(dist({ posTracker.getPos().x, posTracker.getPos().y}, target), timeout);
   }
 
-  void moveFor(float dist, pid::PIDConfig pid, float exit = 5000){
-    w::odom::Point start = {
-      posTracker.x,
-      posTracker.y
+  void Chassis::moveFor(float distIn, pid::PIDConfig pid, float exit = 5000){
+    odom::Point start = {
+      posTracker.getPos().x,
+      posTracker.getPos().y
     };
 
     mainPID.reset();
@@ -53,14 +53,14 @@ namespace jctc {
 
     mainPID.doPID(0, P_ERR, [=]() -> float {
       if((pros::millis() - started) > exit) return 0;
-      return (fabs(distIn) - dist(start.x, start.y, posTracker.x, posTracker.y));
+      return (fabs(distIn) - dist(start, posTracker.getPos().x, posTracker.getPos().y));
     }, [=](float output) -> void {
       driveVector(SGN(-distIn) * output, 0);
     });
     driveVector(SGN(-distIn) * output, 0);
   }
 
-  void moveFor(float dist, float exit = 5000) {
-    moveFor(dist, { 8, 0, 0.1 }, exit);
+  void Chassis::moveFor(float distIn, float exit = 5000) {
+    moveFor(distIn, { 8, 0, 0.1 }, exit);
   }
 }

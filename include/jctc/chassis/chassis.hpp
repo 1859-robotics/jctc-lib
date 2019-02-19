@@ -5,6 +5,14 @@
 #include "../odom/position.hpp"
 #include "../pid/pid.hpp"
 
+#ifndef P_ERR
+#define P_ERR 3
+#endif
+
+#ifndef A_ERR
+#define A_ERR 3
+#endif
+
 namespace jctc {
   class Chassis {
   private:
@@ -22,8 +30,8 @@ namespace jctc {
     void moveTo(odom::Point target, float rotScalar, int timeout, float err);
     void moveToSimple(odom::Point target, int timeout = 5000);
 
-    void moveFor(float dist, float exit = 5000);
-    void moveFor(float dist, ::w::pid::PIDConfig pid, float exit = 5000);
+    void moveFor(float distIn, float exit = 5000);
+    void moveFor(float distIn, ::w::pid::PIDConfig pid, float exit = 5000);
 
     void turnToFace(float target, int timeout, float err);
     void turnToFace(odom::Point target, int timeout, float err);

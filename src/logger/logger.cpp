@@ -11,6 +11,10 @@ namespace jctc {
     lv_obj_align(label, NULL, alignment, 0, 0);
   }
 
+  Logger::~Logger() {
+    lv_label_set_text(label, "");
+  }
+
   void Logger::log(const char* text) {
     lv_label_set_text(label, text);
     std::cout << "[" << name << "]: " << text << std::endl;
