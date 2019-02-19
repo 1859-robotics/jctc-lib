@@ -12,7 +12,7 @@ namespace jctc {
 
   //TODO: make timeout
   void Chassis::driveTo(odom::Point target, float rotScalar, int timeout, float err) {
-    while(!withinErr(target, tracker.getPos().pos, err)) {
+    while(!withinErr(target, tracker.getPos().pos.pos, err)) {
       const odom::Position state = tracker.getPos();
       float tA = rollPI(atan2(target.y - state.pos.y, target.x - state.pos.x) - state.a);
 
@@ -36,14 +36,14 @@ namespace jctc {
   }
 
   void Chassis::moveToSimple(odom::Point target, int timeout) {
-    turnToFace(target, 60);
-    moveFor(dist({ posTracker.getPos().x, posTracker.getPos().y}, target), timeout);
+    turnToFace(target);
+    moveFor(dist({ tracker.getPos().pos.x, tracker.getPos().pos.y}, target), timeout);
   }
 
-  void Chassis::moveFor(float distIn, pid::PIDConfig pid, float exit = 5000){
+  void Chassis::moveFor(float distIn, pid::PIDConfig pid, float exit){
     odom::Point start = {
-      posTracker.getPos().x,
-      posTracker.getPos().y
+      tracker.getPos().pos.x,
+      tracker.getPos().pos.y
     };
 
     mainPID.reset();
@@ -53,14 +53,14 @@ namespace jctc {
 
     mainPID.doPID(0, P_ERR, [=]() -> float {
       if((pros::millis() - started) > exit) return 0;
-      return (fabs(distIn) - dist(start, posTracker.getPos().x, posTracker.getPos().y));
+      return (fabs(distIn) - dist(start, tracker.getPos().pos.x, tracker.getPos().pos.y));
     }, [=](float output) -> void {
       driveVector(SGN(-distIn) * output, 0);
     });
     driveVector(SGN(-distIn) * output, 0);
   }
 
-  void Chassis::moveFor(float distIn, float exit = 5000) {
+  void Chassis::moveFor(float distIn, float exit) {
     moveFor(distIn, { 8, 0, 0.1 }, exit);
   }
 }

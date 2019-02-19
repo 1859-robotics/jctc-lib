@@ -31,7 +31,7 @@ namespace jctc {
     void moveToSimple(odom::Point target, int timeout = 5000);
 
     void moveFor(float distIn, float exit = 5000);
-    void moveFor(float distIn, ::w::pid::PIDConfig pid, float exit = 5000);
+    void moveFor(float distIn, pid::PIDConfig pid, float exit = 5000);
 
     void turnToFace(float target, int timeout, float err);
     void turnToFace(odom::Point target, int timeout, float err);
