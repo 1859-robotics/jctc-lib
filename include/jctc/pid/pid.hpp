@@ -27,9 +27,8 @@ namespace jctc {
 
   class PID {
   private:
-
     float lastValue;
-  	std::uint32_t lastTime;
+    std::uint32_t lastTime;
     float lastSetPoint;
 
     int maxSpeed;

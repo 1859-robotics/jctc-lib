@@ -11,8 +11,8 @@ namespace jctc {
   }
 
   //TODO: make timeout
-  void Chassis::driveTo(odom::Point target, float rotScalar, int timeout, float err) {
-    while(!withinErr(target, tracker.getPos().pos.pos, err)) {
+  void Chassis::moveTo(odom::Point target, float rotScalar, int timeout, float err) {
+    while(!withinErr(target, tracker.getPos().pos, err)) {
       const odom::Position state = tracker.getPos();
       float tA = rollPI(atan2(target.y - state.pos.y, target.x - state.pos.x) - state.a);
 

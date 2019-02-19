@@ -6,11 +6,11 @@
 #include "../pid/pid.hpp"
 
 #ifndef P_ERR
-#define P_ERR 3
+  #define P_ERR 3
 #endif
 
 #ifndef A_ERR
-#define A_ERR 3
+  #define A_ERR 3
 #endif
 
 namespace jctc {
@@ -33,8 +33,8 @@ namespace jctc {
     void moveFor(float distIn, float exit = 5000);
     void moveFor(float distIn, PIDConfig pid, float exit = 5000);
 
-    void turnToFace(float target, int timeout, float err);
-    void turnToFace(odom::Point target, int timeout, float err);
+    void turnToFace(float target, int timeout = 5000, float err = P_ERR);
+    void turnToFace(odom::Point target, int timeout = 5000, float err = P_ERR);
 
     float angleToPoint(odom::Point target);
     float distanceToPoint(odom::Point target);
