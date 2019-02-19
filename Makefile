@@ -18,8 +18,8 @@ EXTRA_CXXFLAGS=
 
 # Set this to 1 to add additional rules to compile your project as a PROS library template
 IS_LIBRARY:=1
-LIBNAME:=jctclib
-VERSION:=3.3.11
+LIBNAME:=libbest
+VERSION:=1.0.0
 EXCLUDE_SRC_FROM_LIB=$(call rwildcard,$(SRCDIR)/test,*.*)
 # this line excludes opcontrol.c and similar files
 EXCLUDE_SRC_FROM_LIB+= $(foreach file, $(SRCDIR)/opcontrol $(SRCDIR)/initialize $(SRCDIR)/autonomous,$(foreach cext,$(CEXTS),$(file).$(cext)) $(foreach cxxext,$(CXXEXTS),$(file).$(cxxext)))

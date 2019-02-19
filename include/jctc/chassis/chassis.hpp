@@ -17,9 +17,14 @@ namespace jctc {
     Chassis(odom::Tracker tracker, PID turnPid, PID distPid) :
       tracker(tracker), turnPid(turnPid), distPid(distPid) {};
 
-    virtual void driveVector(float forward, float turn);
+    virtual void driveVector(float forward, float turn) ;
 
-    void driveTo(odom::Point target, float rotScalar, int timeout, float err);
+    void moveTo(odom::Point target, float rotScalar, int timeout, float err);
+    void moveToSimple(odom::Point target, int timeout = 5000);
+
+    void moveFor(float dist, float exit = 5000);
+    void moveFor(float dist, ::w::pid::PIDConfig pid, float exit = 5000);
+
     void turnToFace(float target, int timeout, float err);
     void turnToFace(odom::Point target, int timeout, float err);
 

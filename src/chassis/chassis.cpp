@@ -34,4 +34,33 @@ namespace jctc {
     }
     driveVector(0, 0);
   }
+
+  void Chassis::moveToSimple(odom::Point target, int timeout) {
+    turnToFace(target, 60);
+    moveFor(dist(posTracker.x, posTracker.y, target.x, target.y), timeout);
+  }
+
+  void moveFor(float dist, pid::PIDConfig pid, float exit = 5000){
+    w::odom::Point start = {
+      posTracker.x,
+      posTracker.y
+    };
+
+    mainPID.reset();
+    mainPID.config(pid);
+
+    std::uint32_t started = pros::millis();
+
+    mainPID.doPID(0, P_ERR, [=]() -> float {
+      if((pros::millis() - started) > exit) return 0;
+      return (fabs(distIn) - dist(start.x, start.y, posTracker.x, posTracker.y));
+    }, [=](float output) -> void {
+      driveVector(SGN(-distIn) * output, 0);
+    });
+    driveVector(SGN(-distIn) * output, 0);
+  }
+
+  void moveFor(float dist, float exit = 5000) {
+    moveFor(dist, { 8, 0, 0.1 }, exit);
+  }
 }
