@@ -15,7 +15,7 @@
 
 namespace jctc {
   class Chassis {
-  private:
+  protected:
     odom::Tracker tracker;
 
     PID turnPid;
