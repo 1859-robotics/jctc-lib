@@ -14,7 +14,6 @@ namespace jctc {
   void Chassis::driveTo(odom::Point target, float rotScalar, int timeout, float err) {
     while(!withinErr(target, tracker.getPos().pos, err)) {
       const odom::Position state = tracker.getPos();
-      float tA = rollPI(atan2(target.y - state.pos.y, target.x - state.pos.x) - state.a);
 
       odom::Point close = odom::closest({
         state.pos.x, state.pos.y                         // current
@@ -22,11 +21,13 @@ namespace jctc {
         target.x, target.y                               // target
       });
 
-      float angleErr = angleToPoint(target);
-      float distanceErr = distanceToPoint(target);
+      float angleErr = angleToPoint(close);
+      if(std::isnan(angleErr)) angleErr = 0;
 
-      float angleVel = turnPid.calculate(0, angleErr);
-      float distanceVel = distPid.calculate(0, distanceErr);
+      float distanceErr = distanceToPoint(close);
+
+      float angleVel = turnPid.calculate(angleErr, 0);
+      float distanceVel = distPid.calculate(distanceErr, 0);
 
       driveVector(distanceVel, angleVel * rotScalar);
 
