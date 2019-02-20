@@ -12,7 +12,7 @@ BINDIR=$(ROOT)/bin
 SRCDIR=$(ROOT)/src
 INCDIR=$(ROOT)/include
 
-WARNFLAGS+=
+WARNFLAGS+=-Wall -Wextra -Wno-implicit-fallthrough -Wno-psabi -pedantic # -Wconversion #-Wmissing-include-dirs
 EXTRA_CFLAGS=
 EXTRA_CXXFLAGS=
 
@@ -23,12 +23,12 @@ LIBNAME:=jctclib
 VERSION:=0.0.1
 # EXCLUDE_SRC_FROM_LIB= $(SRCDIR)/unpublishedfile.c
 # this line excludes opcontrol.c and similar files
-EXCLUDE_SRC_FROM_LIB+=$(foreach file, $(SRCDIR)/opcontrol $(SRCDIR)/initialize $(SRCDIR)/autonomous,$(foreach cext,$(CEXTS),$(file).$(cext)) $(foreach cxxext,$(CXXEXTS),$(file).$(cxxext)))
+EXCLUDE_SRC_FROM_LIB+= $(foreach file, $(SRCDIR)/opcontrol $(SRCDIR)/initialize $(SRCDIR)/autonomous,$(foreach cext,$(CEXTS),$(file).$(cext)) $(foreach cxxext,$(CXXEXTS),$(file).$(cxxext)))
 
 # files that get distributed to every user (beyond your source archive) - add
 # whatever files you want here. This line is configured to add all header files
 # that are in the the include directory get exported
-TEMPLATE_FILES=$(INCDIR)/**/*.h $(INCDIR)/**/*.hpp
+TEMPLATE_FILES=$(INCDIR)/jctc/**/*.h $(INCDIR)/jctc/**/*.hpp
 
 .DEFAULT_GOAL=quick
 
@@ -42,7 +42,7 @@ INCLUDE=-iquote$(INCDIR)
 ASMSRC=$(foreach asmext,$(ASMEXTS),$(call rwildcard, $(SRCDIR),*.$(asmext), $1))
 ASMOBJ=$(addprefix $(BINDIR)/,$(patsubst $(SRCDIR)/%,%.o,$(call ASMSRC,$1)))
 CSRC=$(foreach cext,$(CEXTS),$(call rwildcard, $(SRCDIR),*.$(cext), $1))
-COBJ=$(addprefix $(BINDIR)/,$(patsubst $(SRCDIR)/%,%.o,$(call CSRC, $1)))
+COBJ=$(addprefix $(BINDIR)/,$(patsubst $(SRCDIR)/%,%.o,$(call CSRC,$1)))
 CXXSRC=$(foreach cxxext,$(CXXEXTS),$(call rwildcard, $(SRCDIR),*.$(cxxext), $1))
 CXXOBJ=$(addprefix $(BINDIR)/,$(patsubst $(SRCDIR)/%,%.o,$(call CXXSRC,$1)))
 

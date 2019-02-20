@@ -1,4 +1,4 @@
-#include "../../include/jctc/chassis/chassis.hpp"
+#include "jctc/chassis/chassis.hpp"
 
 namespace jctc {
   float Chassis::angleToPoint(odom::Point point) {
@@ -11,7 +11,7 @@ namespace jctc {
   }
 
   //TODO: make timeout
-  void Chassis::driveTo(odom::Point target, float rotScalar, int timeout, float err) {
+  void Chassis::moveTo(odom::Point target, float rotScalar, int timeout, float err) {
     while(!withinErr(target, tracker.getPos().pos, err)) {
       const odom::Position state = tracker.getPos();
 
@@ -34,5 +34,34 @@ namespace jctc {
       pros::delay(20);
     }
     driveVector(0, 0);
+  }
+
+  void Chassis::moveToSimple(odom::Point target, int timeout) {
+    turnToFace(target);
+    moveFor(dist({ tracker.getPos().pos.x, tracker.getPos().pos.y}, target), timeout);
+  }
+
+  void Chassis::moveFor(float distIn, PIDConfig pid, float exit){
+    odom::Point start = {
+      tracker.getPos().pos.x,
+      tracker.getPos().pos.y
+    };
+
+    distPid.reset();
+    distPid.config(pid);
+
+    std::uint32_t started = pros::millis();
+
+    distPid.doPID(0, P_ERR, [=]() -> float {
+      if((pros::millis() - started) > exit) return 0;
+      return (fabs(distIn) - dist(start, { tracker.getPos().pos.x, tracker.getPos().pos.y }));
+    }, [=](float output) -> void {
+      driveVector(SGN(-distIn) * output, 0);
+    });
+    driveVector(0, 0);
+  }
+
+  void Chassis::moveFor(float distIn, float exit) {
+    moveFor(distIn, { 8, 0, 0.1 }, exit);
   }
 }

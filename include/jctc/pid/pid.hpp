@@ -27,9 +27,8 @@ namespace jctc {
 
   class PID {
   private:
-
     float lastValue;
-  	std::uint32_t lastTime;
+    std::uint32_t lastTime;
     float lastSetPoint;
 
     int maxSpeed;
@@ -43,8 +42,7 @@ namespace jctc {
     float epsilonOuter;
 
     float sigma;
-    PID(PIDConfig config,
-        float epsilonInner, float epsilonOuter) :
+    PID(PIDConfig config, float epsilonInner = 0.001, float epsilonOuter = 0.01) :
         kP(config.kP),             kI(config.kI),             kD(config.kD),
         epsilonInner(epsilonInner),             epsilonOuter(epsilonOuter),
         sigma(0),           lastTime(pros::millis()), lastValue(0),

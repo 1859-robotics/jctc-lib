@@ -1,4 +1,4 @@
-#include "../../include/jctc/logger/logger.hpp"
+#include "jctc/logger/logger.hpp"
 
 namespace jctc {
   Logger::Logger(lv_align_t alignment) {
@@ -9,6 +9,10 @@ namespace jctc {
     label = lv_label_create(lv_scr_act(), NULL);
     lv_label_set_long_mode(label, LV_LABEL_LONG_SCROLL);
     lv_obj_align(label, NULL, alignment, 0, 0);
+  }
+
+  Logger::~Logger() {
+    lv_label_set_text(label, "");
   }
 
   void Logger::log(const char* text) {
