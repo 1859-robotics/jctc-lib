@@ -1,5 +1,9 @@
 #include "jctc/chassis/chassis.hpp"
 
+bool withinRange(float target, float current, float error) {
+  return abs(target - current) < error;
+}
+
 namespace jctc {
   float Chassis::angleToPoint(odom::Point point) {
     odom::Position state = tracker.getPos();
@@ -64,4 +68,24 @@ namespace jctc {
   void Chassis::moveFor(float distIn, float exit) {
     moveFor(distIn, { 8, 0, 0.1 }, exit);
   }
+
+  void Chassis::turnToFace(float deg, int timeout, float err, PIDConfig config) {
+    turnPid.reset();
+    turnPid.config(config);
+
+    if(withinRange(TODEG(tracker.getPos().a), deg, A_ERR)) return;
+
+    turnPid.doPID(deg, err, [=]() -> float {
+      return TODEG(tracker.getPos().a);
+    }, [=](float output) -> void {
+      driveVector(0, output);
+    });
+
+    driveVector(0, 0);
+  }
+  void Chassis::turnToFace(odom::Point target, int timeout, float err, PIDConfig config) {
+    turnPid.reset();
+    turnToFace(TODEG(atan2(target.y - tracker.getPos().pos.y, target.x - tracker.getPos().pos.x)), timeout, err, config);
+  }
+
 }
