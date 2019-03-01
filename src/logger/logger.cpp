@@ -22,5 +22,6 @@ namespace jctc {
 
   void Logger::log(std::string text) {
     lv_label_set_text(label, text.c_str());
+    std::cout << "[" << name << "]: " << text << std::endl;
   }
 }
