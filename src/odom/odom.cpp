@@ -19,7 +19,7 @@ namespace jctc {
       prevREncoderVal = newR;
       prevMEncoderVal = newM;
 
-      float dA = ((dR - dL) / (sL + sR)); // TODO: reset nodes?
+      float dA = ((dR - dL) / (sL + sR)); //TODO: reset nodes?
 
       float avgA = state.a + (dA / 2);
 
@@ -40,6 +40,10 @@ namespace jctc {
 
       float dX = cos(polarA) * polarR;
       float dY = sin(polarA) * polarR;
+
+      // std::cout << "dX: " << dX << std::endl;
+      // std::cout << "dY: " << dY << std::endl;
+      // std::cout << "dA: " << dA << std::endl;
 
       this->state.pos.x += dX;
       this->state.pos.y += dY;
@@ -76,7 +80,7 @@ namespace jctc {
       while(true) {
         tracker->step();
         count++;
-        if(count >= 40) {
+        if(count > 40) {
           tracker->debug();
           count = 0;
         }
