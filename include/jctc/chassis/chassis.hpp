@@ -16,13 +16,12 @@
 namespace jctc {
   class Chassis {
   protected:
-    odom::Tracker tracker;
-
+    odom::Tracker &tracker;
     PID turnPid;
     PID distPid;
-
+    
   public:
-    Chassis(odom::Tracker tracker, PID turnPid, PID distPid) :
+    Chassis(odom::Tracker &tracker, PID turnPid, PID distPid) :
       tracker(tracker), turnPid(turnPid), distPid(distPid) {};
 
     virtual void driveVector(float forward, float turn) const = 0;
