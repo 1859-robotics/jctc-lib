@@ -7,8 +7,9 @@ bool withinRange(float target, float current, float error) {
 namespace jctc {
   float Chassis::angleToPoint(odom::Point point) {
     odom::Position state = tracker.getPos();
-    return (atan2(point.x - state.pos.x, point.y - state.pos.y)) - state.a;
+    return (atan2(point.y - state.pos.y, point.x - state.pos.x)) - state.a;
   }
+
   float Chassis::distanceToPoint(odom::Point target) {
     odom::Position state = tracker.getPos();
     return odom::dist(target, state.pos);
