@@ -2,7 +2,7 @@
 
 namespace jctc {
   Logger::Logger(lv_align_t alignment) {
-    Logger(alignment, "undefined");
+    Logger(alignment, "unnamed");
   }
 
   Logger::Logger(lv_align_t alignment, std::string name) : name(name) {
@@ -22,5 +22,6 @@ namespace jctc {
 
   void Logger::log(std::string text) {
     lv_label_set_text(label, text.c_str());
+    std::cout << "[" << name << "]: " << text << std::endl;
   }
 }
